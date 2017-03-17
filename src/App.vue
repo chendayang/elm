@@ -28,7 +28,7 @@ export default {
 }
 </script>
 
-<style  rel="stylesheet/css">
+<style lang="less"  rel="stylesheet/css">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -36,18 +36,17 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-
-
-}
-#app .tab{
+.tab{
     display:flex;
     width:100%;
     height:40px;
     line-height:40px;
+    .tab-item{
+      display:flax-item;
+      flex:1;
+      text-align: center;
+      >a{display:block}
+    }
   }
-#app .tab .tab-item{
-  display:flax-item;
-  flex:1;
-  text-align: center;
 }
 </style>
