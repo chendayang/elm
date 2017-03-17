@@ -1,6 +1,6 @@
 <template>
-  <div class="header">
-    im header
+  <div class="ratings">
+    im ratings
   </div>
 </template>
 
