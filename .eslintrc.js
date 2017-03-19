@@ -30,5 +30,6 @@ module.exports = {
     'space-infix-ops': 0,
     'key-spacing': 0,
     'space-before-blocks': 0,
+    'arrow-spacing': 0
   }
 }
