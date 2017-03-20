@@ -14,7 +14,7 @@
         <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <router-view></router-view>
+    <router-view v-bind:seller="seller"></router-view>
   </div>
 </template>
 
@@ -46,6 +46,8 @@ export default {
 </script>
 
 <style lang="less"  rel="stylesheet/css" scoped>
+@import './common/css/icon.css';
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

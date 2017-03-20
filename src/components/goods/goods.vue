@@ -28,23 +28,38 @@
                 <span class="now">￥{{food.price}}</span>
                 <span class="old" v-show="food.oldPrice>0">{{food.oldPrice}}</span>
               </div>
+              <div class="cartcontrol-wrapper">
+                <cartcontrol v-bind:food="food" v-on:increment="incrementTotal"></cartcontrol>
+              </div>
             </div>
           </li>
         </ul>
       </li>
     </ul>
   </div>
+  <shopcart ref=shopcart v-bind:delivery-price="seller.deliveryPrice" v-bind:minPrice="seller.minPrice" v-bind:select-foods="selectFoods"></shopcart>
 </div>
 </template>
 
 <script>
 import Bscroll from 'better-scroll'
+import shopcart from 'components/shopcart/shopcart.vue'
+import cartcontrol from 'components/cartcontrol/cartcontrol.vue'
 let ERR_OK= 0
 export default {
   props:{
     seller:{
       type:Object
     }
+  },
+  events:{
+    'cart.add' (target){
+      this._drop(target)
+    }
+  },
+  components:{
+    shopcart,
+    cartcontrol
   },
   data () {
     return {
@@ -63,6 +78,17 @@ export default {
         }
       }
       return 0
+    },
+    selectFoods() {
+      let foods = []
+      this.goods.forEach((good)=>{
+        good.foods.forEach((food)=>{
+          if(food.count){
+            foods.push(food)
+          }
+        })
+      })
+      return foods
     }
   },
   created () {
@@ -78,10 +104,14 @@ export default {
         }
       }
     )
-
     this.classMap= ['decrease','discount','special','invoice','guarantee']
   },
   methods: {
+    incrementTotal(target) {
+      this.$nextTick(()=> {
+        this.$refs.shopcart.drop(target)
+      })
+    },
     _initScroll() {
       this.meunScroll = new Bscroll(this.$refs.menuWrapper,{
         click: true
@@ -208,6 +238,7 @@ export default {
       };
       .content{
         flex:1 1 auto;
+        position:relative;
         .name{
           margin:2px 0 8px 0;
           height:14px;
@@ -244,6 +275,11 @@ export default {
             color:rgb(147,153,159);
           }
 
+        }
+        .cartcontrol-wrapper{
+          position:absolute;
+          right:0;
+          bottom:12px;
         }
       };
     }

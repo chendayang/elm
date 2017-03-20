@@ -104,7 +104,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less"  rel="stylesheet/css" scoped>
-@import '../../common/css/icon.css';
 
 .header{
   position:relative;
