@@ -1,4 +1,5 @@
 <template>
+<div>
 <div class="shopcart">
     <div class="content">
         <div class="content-left" v-on:click="toggleList">
@@ -11,7 +12,7 @@
             <div class="price" v-bind:class="{highlight:totalPrice>0}">￥{{totalPrice}}元</div>
             <div class="desc">另需配送费 ￥{{deliveryPrice}}元</div>
         </div>
-        <div class="content-right">
+        <div class="content-right" v-on:click="pay">
             <div class="pay" v-bind:class="{enough:this.totalPrice>=this.minPrice}">{{payDesc}}</div>
         </div>
     </div>
@@ -28,7 +29,7 @@
     <div class="showcart-list" v-show="listShow">
         <div class="list-header">
             <h1 class="title">购物车</h1>
-            <span class="empty">清空</span>
+            <span class="empty" v-on:click="empty">清空</span>
         </div>
         <div class="list-content" ref="listContent">
             <ul>
@@ -46,6 +47,10 @@
     </div>
     </transition>
 
+</div>
+<transition name="mask">
+<div class="list-mask" v-show="listShow" v-on:click="hideList"></div>
+</transition>
 </div>
 </template>
 
@@ -131,6 +136,21 @@ export default{
             if(ball){
                 ball.show= false
                 el.style.display= 'none'
+            }
+        },
+        empty() {
+            this.selectFoods.forEach((food)=> {
+                food.count= 0
+            })
+        },
+        hideList() {
+            this.fold= true
+        },
+        pay() {
+            if(this.totalPrice<this.minPrice) {
+                return
+            }else{
+                window.alert(`支付${this.totalPrice}元`)
             }
         }
     },
@@ -383,5 +403,22 @@ export default{
         }
     }
     
+}
+.list-mask{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:40;
+    transition:all 0.5s;
+    background:rgba(7,17,27,0.6);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    &.mask-enter, &.mask-leave-active{
+        opacity:0;
+        background:rgba(7,17,27,0);
+
+    }
 }
 </style>
