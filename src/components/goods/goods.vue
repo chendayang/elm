@@ -13,7 +13,7 @@
       <li v-for="item in goods" class="food-list food-list-hook">
         <h1 class="title">{{item.name}}</h1>
         <ul>
-          <li v-for="food in item.foods" class="food-item">
+          <li v-for="food in item.foods" class="food-item" v-on:click="selectFood(food,$event)">
             <div class="icon">
               <img v-bind:src="food.icon">
             </div>
@@ -38,6 +38,7 @@
     </ul>
   </div>
   <shopcart ref=shopcart v-bind:delivery-price="seller.deliveryPrice" v-bind:minPrice="seller.minPrice" v-bind:select-foods="selectFoods"></shopcart>
+  <food v-bind:food="selectedFood" ref="food"></food>
 </div>
 </template>
 
@@ -45,6 +46,7 @@
 import Bscroll from 'better-scroll'
 import shopcart from 'components/shopcart/shopcart.vue'
 import cartcontrol from 'components/cartcontrol/cartcontrol.vue'
+import food from 'components/food/food.vue'
 let ERR_OK= 0
 export default {
   props:{
@@ -59,13 +61,15 @@ export default {
   },
   components:{
     shopcart,
-    cartcontrol
+    cartcontrol,
+    food
   },
   data () {
     return {
       goods: {},
       listHeight: [],
-      scrollY: 0
+      scrollY: 0,
+      selectedFood:{}
     }
   },
   computed:{
@@ -117,7 +121,8 @@ export default {
         click: true
       })
       this.foodsScroll = new Bscroll(this.$refs.foodsWrapper,{
-        probeType: 3
+        probeType: 3,
+        click:true
       })
       this.foodsScroll.on('scroll', (pos) => {
         this.scrollY = Math.abs(Math.round(pos.y))
@@ -141,6 +146,14 @@ export default {
       let foodList= this.$refs.foodsWrapper.getElementsByClassName('food-list-hook')
       let el = foodList[index]
       this.foodsScroll.scrollToElement(el,300)
+    },
+    selectFood(food,event) {
+      // if(!event._constructed){
+      //   return
+      // }
+      this.selectedFood = food
+      this.$refs.food.show()
+      console.log('a')
     }
   }
 }
