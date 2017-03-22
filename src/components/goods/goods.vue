@@ -148,9 +148,9 @@ export default {
       this.foodsScroll.scrollToElement(el,300)
     },
     selectFood(food,event) {
-      // if(!event._constructed){
-      //   return
-      // }
+      if(!event._constructed){
+        return
+      }
       this.selectedFood = food
       this.$refs.food.show()
       console.log('a')
