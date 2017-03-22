@@ -14,7 +14,9 @@
         <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <router-view v-bind:seller="seller"></router-view>
+    <keep-alive>
+    <router-view v-bind:seller="seller" v-bind:ratings="ratings"></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -37,6 +39,15 @@ export default {
           // console.log(this.seller)
         }
       }, () => {}
+    )
+    this.$http.get('/api/ratings').then(
+      (res)=>{
+        res=res.body
+        if(res.errno===ERR_OK){
+          this.ratings=res.data
+          // console.log(this.ratings)
+        }
+      }
     )
   },
   components: {
