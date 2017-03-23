@@ -27,7 +27,8 @@ export default {
   name: 'app',
   data () {
     return {
-      seller: {}
+      seller: {},
+      ratings:[]
     }
   },
   created() {

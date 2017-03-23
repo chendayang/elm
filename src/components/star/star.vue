@@ -13,7 +13,7 @@ let CLS_OFF='off'
 export default {
     props:{
         size:{
-            type:Number
+            tryp:Number
         },
         score: {
             type:Number

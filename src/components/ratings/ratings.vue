@@ -68,7 +68,7 @@ export default {
       type:Object
     },
     ratings:{
-      type:Object
+      type:Array
     }
   },
   components:{
