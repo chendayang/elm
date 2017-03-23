@@ -2,6 +2,8 @@
 
 > eleme app
 
+## 还没部署到博客上，只能在我的电脑上演示
+
 ## Build Setup
 
 ``` bash
